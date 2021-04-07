@@ -29,12 +29,15 @@ CREATE TABLE `user` (
 `firstName` varchar(50)NOT NULL,
 `lastName` varchar(50)NOT NULL,
 `email` varchar(50)NOT NULL,
+`password` varchar(100)NOT NULL,
 `deleted` boolean NOT NULL DEFAULT FALSE,
 `saved` boolean NOT NULL DEFAULT FALSE,
+`role` varchar(50)NOT NULL,
 PRIMARY KEY(id),
 KEY firstName(firstName),
 KEY lastName(lastName),
 KEY email(email),
+KEY password(password),
 KEY deleted(deleted),
 KEY saved(saved)
 )ENGINE = INNODB DEFAULT CHARSET = utf8
