@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">
+
+<body>
+<div id="login" class="login-form " th:fragment="login">
+    <div>
+        <h3>${pageContext.request.userPrincipal.name}</h3>
+        <sec:authorize access="!isAuthenticated()">
+            <h4><a href="/login">Войти</a></h4>
+            <h4><a href="/registration">Зарегистрироваться</a></h4>
+        </sec:authorize>
+        <sec:authorize access="isAuthenticated()">
+            <h4><a href="/logout">Выйти</a></h4>
+        </sec:authorize>
+        <h4><a href="/news">Новости (только пользователь)</a></h4>
+        <h4><a href="/admin">Пользователи (только админ)</a></h4>
+    </div>
+    <div>
+        <form method="POST" action="/login">
+            <h2>Вход в систему</h2>
+            <div>
+                <input name="username" type="text" placeholder="Username"
+                       autofocus="true"/>
+                <input name="password" type="password" placeholder="Password"/>
+                <button type="submit">Log In</button>
+                <h4><a href="/registration">Зарегистрироваться</a></h4>
+            </div>
+        </form>
+    </div>
+    <div class="container">
+        <p th:if="${loginError}" class="error">Неверный пользователь или пароль</p>
+        <form th:action="@{/login}" method="post" sec:authorize="!isAuthenticated()">
+            <label for="username">Username</label>:
+            <input type="text" id="username" name="username" autofocus="autofocus"/> <br/>
+            <label for="password">Password</label>:
+            <input type="password" id="password" name="password"/> <br/>
+            <input type="submit" value="Войти"/>
+        </form>
+        <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+            Logged user: <span sec:authentication="name">Bob</span>
+            Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
+            <input type="submit" value="Выйти"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>

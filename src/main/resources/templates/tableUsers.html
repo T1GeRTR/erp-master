@@ -2,18 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <body>
-<div id="table-hours" class="table-hours pt130 pb130 " th:fragment="tableUsers">
+<div id="table-hours" class="table-hours pb130" style="padding-top:100px;" th:fragment="tableUsers">
     <div class="container">
-        <table>
+        <table style="width: 1110px;margin-top: -100px; padding-top: 130px; position:fixed; table-layout: fixed;" class="main">
+            <tr style="height: 30px; width:100%">
+                <td class="td-left" style="border-width: 0px;"></td>
+                <td th:each="dayOfWeek: ${weeks}" style="width: 100%; max-width: 28px;border-width: 0px;">
+                </td>
+                <td style="width: 40px; border-width: 0px;"></td>
+            </tr>
             <tr>
                 <td class="td-left"></td>
-                <td class="bgcolor-td" th:each="dayOfWeek: ${weeks}">
+                <td class="bgcolor-td" th:each="dayOfWeek: ${weeks}" style="width: 100%; max-width: 28px;">
                     <p th:utext="${dayOfWeek}" th:class="${dayOfWeek == 'СБ'} OR ${dayOfWeek == 'ВС'}? weekEnd"></p>
                 </td>
                 <td class="td-right"></td>
             </tr>
             <tr>
-                <td class="bgcolor-td td-name" th:utext="${month} + '-' + ${year}"></td>
+                <td class="bgcolor-td td-name" th:utext="${month} + '-' + ${year}" style="width: 205px;"></td>
                 <td class="bgcolor-td" th:each="day: ${days}">
                     <p th:utext="${day}"></p>
                 </td>
@@ -21,12 +27,13 @@
                     <p>Σ</p>
                 </td>
             </tr>
-
+        </table>
+        <table style="width: 100%; margin-top: 90px; table-layout: fixed;">
             <form name="hours" action="#" th:action="@{/hours/{month}-{year}(month=${month},year=${year})}"
                   th:object="${users}" method="post" onsubmit="return false;">
                 <tr th:each="user, itemStat : *{userList}" class="tr-hours">
-                    <td class="bgcolor-td td-name" th:utext="${user.lastname} + ' ' + ${user.firstname}">...</td>
-                    <td th:each="day, itemStat1 : *{userList[__${itemStat.index}__].hours}">
+                    <td class="bgcolor-td td-name" style="height: 28px;" th:utext="${user.lastname} + ' ' + ${user.firstname}">...</td>
+                    <td th:each="day, itemStat1 : *{userList[__${itemStat.index}__].hours}" style="width: 100%; max-width: 28px;">
                         <input type="hidden"
                                th:field="*{userList[__${itemStat.index}__].hours[__${itemStat1.index}__].id}">
                         <input type="hidden"
@@ -35,20 +42,15 @@
                                th:field="*{userList[__${itemStat.index}__].hours[__${itemStat1.index}__].date}">
                         <input type="hidden"
                                th:field="*{userList[__${itemStat.index}__].hours[__${itemStat1.index}__].type}">
-                        <!--                        <div class="div-save" th:if="${day.saved}">-->
                         <input type="hidden"
                                th:field="*{userList[__${itemStat.index}__].hours[__${itemStat1.index}__].hours}"
                                class="input div-save" th:if="${day.saved}" onfocus="ChangeColor(this);">
-                        <!--                        </div>-->
-                        <!--                        <div class="div-not-save" th:if="${not day.saved}">-->
                         <input type="hidden"
                                th:field="*{userList[__${itemStat.index}__].hours[__${itemStat1.index}__].hours}"
-                               class="input div-not-save" th:if="${not day.saved}" onfocus="ChangeColor(this);">
-                        <!--                        </div>-->
-
+                               class="input div-not-save" th:if="${not day.saved}" onfocus="ChangeColor(this);" style="width: 28px">
                     </td>
-                    <td class="bgcolor-td"><input type="hidden" th:value="${user.sumHours}" class="bgcolor-td sum"
-                                                  readonly></td>
+                    <td class="bgcolor-td" style="width: 40px; border-right-width:1px"><input type="hidden" th:value="${user.sumHours}" class="bgcolor-td sum"
+                                                  readonly style="width: 40px"></td>
                 </tr>
             </form>
         </table>

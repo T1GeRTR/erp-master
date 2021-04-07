@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">
 
 <body>
 <header id="header" class="header" th:fragment="header">
     <div class="nav d-flex flex-space-between">
-        <div class="logo"><img src="/ASE_logo_rus.png" alt=""></div>
+        <a th:href="@{'../'}"><div class="logo"><img src="/ASE_logo_rus.png" alt=""></div></a>
         <ul class="menu"></ul>
         <li>
             <a th:href="@{'../user/6258116/' + ${month} + '-' + ${year}}">Мой табель</a>
         </li>
-        <li>
+        <li sec:authorize="hasRole('ROLE_ADMIN') || !isAuthenticated()">
             <a th:href="@{'../user/'}">Сотрудники</a>
         </li>
-        <li>
+        <li sec:authorize="hasRole('ROLE_ADMIN') || !isAuthenticated()">
             <a th:href="@{'../hours/' + ${month} + '-' + ${year}}">Общий табель</a>
         </li>
         <li>

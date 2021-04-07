@@ -1,9 +1,8 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">
 <head>
     <meta charset="UTF-8"/>
-    <title>User List</title>
+    <title>Users List</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" href="/css/bootstrap.css">
     <link th:href="@{/css/header.css}" rel="stylesheet" href="/css/header.css">
@@ -11,13 +10,26 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="/js/main.js"></script>
 </head>
-
 <body>
 <div th:insert="~{header :: header}"></div>
-<th:block th:if="${users}">
-    <div th:replace="~{tableUsers :: tableUsers}"></div>
-</th:block>
->
+<div class="main pt130" style="padding-bottom: 700px; padding-top: 350px;">
+    <div style="width:300px;margin:auto;text-align: center; background-color:#FFF; padding:30px;">
+        <div sec:authorize="!isAuthenticated()">
+            <form method="POST" action="/">
+                <h5>Вход в систему</h5>
+                <div>
+                    <input name="username" type="text" placeholder="E-mail"
+                           autofocus="true"/>
+                    <input name="password" type="password" placeholder="Пароль"/>
+                    <button type="submit">Вход</button>
+                </div>
+            </form>
+        </div>
+        <div sec:authorize="isAuthenticated()">
+            <div><p>Добро пожаловать,</p> <p th:utext="${user.firstname}"></p></div>
+            <h4><button><a href="/logout">Выйти</a></button></h4>
+        </div>
+    </div>
+</div>
 </body>
-
 </html>

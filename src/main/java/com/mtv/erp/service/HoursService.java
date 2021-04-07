@@ -152,12 +152,15 @@ public class HoursService {
         for (Hours elem : hours) {
             for (HoursGetUserDtoResponse old : oldHours) {
                 String elemHours;
+                String oldElemHours;
                 try {
+                    oldElemHours = String.valueOf(Float.parseFloat(old.getHours()));
                     elemHours = String.valueOf(Float.parseFloat(elem.getHours()));
                 } catch (NumberFormatException ex) {
                     elemHours = elem.getHours();
+                    oldElemHours = old.getHours();
                 }
-                if (elem.getId() == old.getId() && (!elemHours.equals(old.getHours()) || elem.getType() != old.getType())) {
+                if (elem.getId() == old.getId() && (!elemHours.equals(oldElemHours) || elem.getType() != old.getType())) {
                     hoursDao.saveChanges(elem);
                     break;
                 }
@@ -168,6 +171,4 @@ public class HoursService {
         }
         return true;
     }
-
-
 }

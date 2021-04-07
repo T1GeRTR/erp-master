@@ -1,8 +1,9 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">
+
 <head>
     <meta charset="UTF-8"/>
-    <title>Users List</title>
+    <title>User List</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" href="/css/bootstrap.css">
     <link th:href="@{/css/header.css}" rel="stylesheet" href="/css/header.css">
@@ -10,8 +11,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="/js/main.js"></script>
 </head>
+
 <body>
 <div th:insert="~{header :: header}"></div>
-<div class="main" th:insert="~{users :: users}"></div>
+<div th:insert="~{login :: login}" class="main pt130" style="padding-bottom:900px"></div>
+<div th:insert="~{footer :: footer}"></div>
 </body>
+
+
+
 </html>

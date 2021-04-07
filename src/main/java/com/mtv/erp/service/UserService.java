@@ -2,6 +2,7 @@ package com.mtv.erp.service;
 
 import com.mtv.erp.dao.UserDao;
 import com.mtv.erp.exception.ServerException;
+import com.mtv.erp.model.Role;
 import com.mtv.erp.model.User;
 import com.mtv.erp.request.UserSaveDtoRequest;
 import com.mtv.erp.response.EmptyResponse;
@@ -12,10 +13,15 @@ import com.mtv.erp.response.planfixResponse.PlanfixUser;
 import com.mtv.erp.utils.LaborRecordConverter;
 import com.mtv.erp.utils.MonthYearConverter;
 import com.mtv.erp.utils.Planfix;
+import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -23,10 +29,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
@@ -38,7 +47,7 @@ public class UserService {
         List<PlanfixUser> usersFromPlanfix = planfix.getUsers();
         LOGGER.debug("Users in Planfix: {}", usersFromPlanfix.size());
         for (PlanfixUser user : usersFromPlanfix) {
-            usersFromPf.add(new User(user.getId(), user.getFirstname(), user.getLastname(), user.getEmail()));
+            usersFromPf.add(new User(user.getId(), user.getFirstname(), user.getLastname(), user.getEmail(), bCryptPasswordEncoder.encode("Xibs95r8#"), Role.ROLE_EMPLOYEE));
         }
         List<User> users = userDao.getAll();
         List<User> usersUpdate = new ArrayList<>();
@@ -50,7 +59,9 @@ public class UserService {
             }
             for (int j = 0; j < users.size(); j++) {
                 if (usersFromPf.get(i).getId() == users.get(j).getId()) {
-                    if (!usersFromPf.get(i).equals(users.get(j))) {
+                    User userPf = usersFromPf.get(i);
+                    User user = users.get(j);
+                    if (!(userPf.getId() == user.getId() && userPf.getFirstname().equals(user.getFirstname()) && userPf.getLastname().equals(user.getLastname()) && userPf.getEmail().equals(user.getEmail()))) {
                         usersUpdate.add(usersFromPf.get(i));
                     }
                     usersNotAdd.add(usersFromPf.get(i));
@@ -76,15 +87,15 @@ public class UserService {
         return getAll();
     }
 
-    public EmptyResponse save(UserSaveDtoRequest user) throws ServerException{
-       userDao.save(new User(user.getId(), user.getFirstname(), user.getLastname(), user.getEmail()));
+    public EmptyResponse save(UserSaveDtoRequest user) throws ServerException {
+        userDao.save(new User(user.getFirstname(), user.getLastname(), user.getEmail(), bCryptPasswordEncoder.encode(user.getPassword()), user.getRole()));
         return new EmptyResponse();
     }
 
     public List<UserGetAllDtoResponse> getAll() throws ServerException {
         List<UserGetAllDtoResponse> getAllDtoResponses = new ArrayList<>();
         for (User user : userDao.getAll()) {
-            getAllDtoResponses.add(new UserGetAllDtoResponse(user.getId(), user.getFirstname(), user.getLastname(), user.getEmail()));
+            getAllDtoResponses.add(new UserGetAllDtoResponse(user.getId(), user.getFirstname(), user.getLastname(), user.getEmail(), user.getRole(), user.isSaved()));
         }
         return getAllDtoResponses;
     }
@@ -110,5 +121,11 @@ public class UserService {
         LocalDate to = (from.getMonthValue() < LocalDate.now().getMonthValue() && from.getYear() <= LocalDate.now().getYear()) ? from.withDayOfMonth(from.lengthOfMonth()) : LocalDate.now();
         User user = userDao.getFromDateById(from, to, id);
         return new UserGetFromDateByIdDtoResponse(user.getId(), user.getFirstname(), user.getLastname(), user.getEmail(), LaborRecordConverter.convertLaborRecord(user.getUserHours()), LaborRecordConverter.convertDtoHours(LaborRecordConverter.convertHours(user.getHours(), from, user)), from.lengthOfMonth());
+    }
+
+    @SneakyThrows
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        return userDao.getByEmail(s);
     }
 }

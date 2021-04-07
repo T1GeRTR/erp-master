@@ -29,11 +29,12 @@ public class HoursController {
     @Autowired
     private UserService userService;
 
-    @PostConstruct
-    @RequestMapping(value = {"/hours/update"}, method = RequestMethod.GET)
-    EmptyResponse update() throws ServerException {
+    //@PostConstruct
+    @PostMapping(value = {"/hours/update"})
+    String update() throws ServerException {
         userService.update();
-        return hoursService.update();
+        hoursService.update();
+        return "index";
     }
 
     @RequestMapping(value = {"/hours/{monthYear}"}, method = RequestMethod.GET)

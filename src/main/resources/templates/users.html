@@ -19,19 +19,26 @@
                 <div th:utext="${user.email}" class="col-3 bg-td border-color">...</div>
                 <div class="col-2 bg-td border-color">...</div>
             </div>
-            <form name="addUser" action="#" th:action="@{/user}"
+            <form name="addUser" id="addUser" action="#" th:action="@{/user}" style="margin-top: 20px;"
                   th:object="${user}" method="post" onsubmit="return false;">
-                <div class="row">
+                <div class="row" style="background-color:#FFF">
                     <div style="text-align: center; padding: 0px;" class="col-1 border-color bgcolor-td">Добавить сотрудника</div>
-                    <div class="col-3 d-flex border-color align-items-center"><input type="text" id="lastname"
-                                                                                     th:value="${user.lastname}" th:field="*{lastname}"/></div>
-                    <div class="col-3 d-flex border-color align-items-center"><input type="text" id="firstname"
-                                                                                     th:value="${user.firstname}" th:field="*{firstname}"/></div>
-                    <div class="col-3 d-flex border-color align-items-center"><input type="email" id="email"
-                                                                                     th:value="${user.email}" th:field="*{email}"/>
+                    <div class="col-2 d-flex border-color align-items-center">
+                        <input type="text" id="lastname" th:placeholder="Фамилия" th:field="*{lastname}"/></div>
+                    <div class="col-2 d-flex border-color align-items-center">
+                        <input type="text" id="firstname" th:placeholder="Имя" th:field="*{firstname}"/></div>
+                    <div class="col-2 d-flex border-color align-items-center">
+                        <input type="email" id="email" th:placeholder="Email" th:field="*{email}"/>
                     </div>
-                    <div class="col-2 d-flex border-color align-items-center"><input type="button" class="user-save"
-                                                                                     onclick="document.forms['addUser'].submit();">
+                    <div class="col-2 border-color align-items-center">
+                        <input type="password" id="password" th:placeholder="Пароль" th:field="*{password}"/>
+                        <input type="password" id="passwordConfirm" th:placeholder="Подтверждение" th:field="*{passwordConfirm}"/>
+                    </div>
+                    <div class="col-2 d-flex border-color align-items-center">
+                        <input type="text" id="role" th:placeholder="${user.role.name}" th:field="*{role}"/>
+                    </div>
+                    <div class="col-1 d-flex border-color align-items-center">
+                        <input id= "addUserBtn" type="button" class="user-save">
                     </div>
                 </div>
             </form>

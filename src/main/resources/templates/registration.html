@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.springframework.org/tags/form">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Users List</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" href="/css/bootstrap.css">
+    <link th:href="@{/css/header.css}" rel="stylesheet" href="/css/header.css">
+    <link th:href="@{/css/style.css}" rel="stylesheet" href="/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+</head>
+<body>
+<div>
+    <form:form method="POST" modelAttribute="userForm">
+        <h2>Регистрация</h2>
+        <div>
+            <form:input type="text" path="username" placeholder="Username"
+                        autofocus="true"></form:input>
+            <form:errors path="username"></form:errors>
+            ${usernameError}
+        </div>
+        <div>
+            <form:input type="password" path="password" placeholder="Password"></form:input>
+        </div>
+        <div>
+            <form:input type="password" path="passwordConfirm"
+                        placeholder="Confirm your password"></form:input>
+            <form:errors path="password"></form:errors>
+            ${passwordError}
+        </div>
+        <div>
+            <form:input type="text" path="email" placeholder="Email"></form:input>
+        </div>
+        <div>
+            <form:input type="text" path="firstName" placeholder="FirstName"></form:input>
+        </div>
+        <div>
+            <form:input type="text" path="lastName" placeholder="LastName"></form:input>
+        </div>
+        <button type="submit">Зарегистрироваться</button>
+    </form:form>
+    <a href="/">Главная</a>
+</div>
+</body>
+</html>

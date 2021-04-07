@@ -47,9 +47,6 @@ public class LaborRecordConverter {
             int index = elem.getDate().getDayOfMonth() - 1;
             if (monthHours[index].getHours().equals("0")) {
                 monthHours[index] = elem;
-            } else {
-                Hours record = monthHours[index];
-                record.setHours(String.valueOf(Float.parseFloat(record.getHours()) + Float.parseFloat(elem.getHours())));
             }
         }
         return Arrays.asList(monthHours);

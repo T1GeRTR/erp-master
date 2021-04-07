@@ -15,7 +15,7 @@ public interface UserDao {
 
     boolean update (User user) throws ServerException;
 
-    User getById (int id);
+    User getById (int id) throws ServerException;
 
     User getFromDateById(LocalDate from, LocalDate to, int id) throws ServerException;
 
@@ -24,6 +24,8 @@ public interface UserDao {
     List<User> getAll () throws ServerException;
 
     List<User> insertAll(List<User> users) throws ServerException;
+
+    User getByEmail(String email) throws ServerException;
 
     //List<User> getByDepartamentId(int id);
 

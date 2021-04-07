@@ -85,13 +85,21 @@ public class UserDaoImpl extends DaoImplBase implements UserDao {
 
 
     @Override
-    public User getById(int id) {
-        return null;
+    public User getById(int id) throws ServerException {
+        LOGGER.debug("DAO get user by id");
+        try (SqlSession sqlSession = getSession()) {
+            try {
+                return getUserMapper(sqlSession).getById(id);
+            } catch (RuntimeException e) {
+                LOGGER.debug("Can't get user by id {}", id, e);
+                throw new ServerException(ErrorCode.DATABASE_ERROR);
+            }
+        }
     }
 
     @Override
     public User getFromDateById(LocalDate from, LocalDate to, int id) throws ServerException {
-        LOGGER.debug("DAO get user by id");
+        LOGGER.debug("DAO get user by id from date");
         try (SqlSession sqlSession = getSession()) {
             try {
                 return getUserMapper(sqlSession).getByIdWithUserHours(id, from, to);
@@ -151,6 +159,19 @@ public class UserDaoImpl extends DaoImplBase implements UserDao {
             sqlSession.commit();
         }
         return users;
+    }
+
+    @Override
+    public User getByEmail(String email) throws ServerException {
+        LOGGER.debug("DAO get user by email");
+        try (SqlSession sqlSession = getSession()) {
+            try {
+                return getUserMapper(sqlSession).getByEmail(email);
+            } catch (RuntimeException e) {
+                LOGGER.debug("Can't get user by email {}", email, e);
+                throw new ServerException(ErrorCode.DATABASE_ERROR);
+            }
+        }
     }
 
 }

@@ -1,4 +1,3 @@
-console.log("Method work");
 var inputs = document.getElementsByClassName('input');
 var sums = document.getElementsByClassName('sum');
 var save = document.getElementsByClassName('div-save');
@@ -23,6 +22,9 @@ function ChangeColor(Element) {
     let check = document.getElementById('check');
     let typeDay = Element.parentNode.children[3];
     if (check.checked) {
+        if(type.value == 1){
+            Element.value = 8;
+        }
         typeDay.value = type.value;
         colorType(Element, typeDay);
     }
@@ -67,7 +69,7 @@ function colorType(Element, typeDay) {
     }
 }
 
-    function updateTable() {
+function updateTable() {
         var month = $("#monthInt").val();
         var year = $("#yearInt").val();
         var url = "../hours/" + month + "-" + year;
@@ -75,3 +77,41 @@ function colorType(Element, typeDay) {
             $("#table-hours").replaceWith(fragment); // update snippet of page
         });
 }
+
+function updatingHours() {
+$("#updateHoursImg").css('animation', 'updating  2s infinite linear');
+$.ajax({
+    type:"POST",
+    url:"/hours/update",
+    dataType:"json",
+    success:function(response){
+        $("#updateHoursImg").css('animation', 'none');
+        document.location.reload();
+    }
+});
+}
+
+$( document ).ready(function() {
+    $("#addUserBtn").click(
+		function(){
+			addUser();
+			return false;
+		}
+	);
+});
+
+function addUser() {
+    var form = $("#addUser");
+    var url = form.attr('action');
+    console.log("SAVE USER");
+    $.ajax({
+           type: "POST",
+           url: url,
+           data: form.serialize(), // serializes the form's elements.
+           success: function(data)
+           {
+              document.location.reload();
+           }
+    });
+}
+

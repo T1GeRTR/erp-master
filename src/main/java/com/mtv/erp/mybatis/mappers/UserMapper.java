@@ -1,8 +1,5 @@
 package com.mtv.erp.mybatis.mappers;
 
-import com.mtv.erp.model.Department;
-import com.mtv.erp.model.LaborRecord;
-import com.mtv.erp.model.Position;
 import com.mtv.erp.model.User;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.FetchType;
@@ -12,27 +9,29 @@ import java.util.List;
 
 public interface UserMapper {
 
-    @Insert({"INSERT INTO user (id, firstname, lastname, email) VALUES (#{user.id}, #{user.firstname}, #{user.lastname}, #{user.email}"})
+    @Insert({"INSERT INTO user (id, firstname, lastname, email, password, role) VALUES (#{user.id}, #{user.firstname}, #{user.lastname}, #{user.email}, #{user.password}, #{user.role}"})
     void insert(@Param("user") User user);
 
-    @Insert({"INSERT INTO user (id, firstname, lastname, email, saved) VALUES ((select max(b.id) From user as a left join user as b on a.id = b.id WHERE a.id < 6000000) + 1, #{user.firstname}, #{user.lastname}, #{user.email}, 1)"})
+    @Insert({"INSERT INTO user (id, firstname, lastname, email, password, role, saved) VALUES ((select max(b.id) From user as a left join user as b on a.id = b.id WHERE a.id < 6000000) + 1, #{user.firstname}, #{user.lastname}, #{user.email}, #{user.password}, #{user.role}, 1)"})
     @Options(useGeneratedKeys = true, keyProperty = "id")
     Integer save(@Param("user") User user);
 
-    @Select({"SELECT id, firstname, lastname, email FROM user WHERE id = #{id} AND NOT deleted = 1"})
+    @Select({"SELECT id, firstname, lastname, email, password, role, saved FROM user WHERE id = #{id} AND NOT deleted = 1"})
     User getById(@Param("id") int id);
 
+    @Select({"SELECT id, firstname, lastname, email, password, role, saved FROM user WHERE email = #{email} AND NOT deleted = 1"})
+    User getByEmail(@Param("email") String email);
 
-    @Update({"UPDATE user SET firstname = #{user.firstname}, lastname = #{user.lastname}, email = #{user.email} WHERE id = #{user.id}"})
+    @Update({"UPDATE user SET firstname = #{user.firstname}, lastname = #{user.lastname}, email = #{user.email}, role = #{user.role.name} WHERE id = #{user.id}"})
     boolean update(@Param("user") User user);
 
     @Delete("UPDATE user SET deleted = 1 WHERE id = #{id}")
     Integer delete(@Param("id") Integer userId);
 
     @Insert({"<script>",
-            "INSERT INTO user (id, firstname, lastname, email) VALUES",
+            "INSERT INTO user (id, firstname, lastname, email, password, role) VALUES",
             "<foreach item='user' collection= 'list' separator=', '>",
-            "(#{user.id}, #{user.firstname}, #{user.lastname}, #{user.email})",
+            "(#{user.id}, #{user.firstname}, #{user.lastname}, #{user.email}, #{user.password}, #{user.role})",
             "</foreach>",
             "</script>"})
     @Options(useGeneratedKeys = true, keyProperty = "id")

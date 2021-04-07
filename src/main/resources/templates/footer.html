@@ -5,32 +5,43 @@
 <footer id="footer" class="footer" th:fragment="footer">
     <div class="container">
         <div class="row">
-            <div class="col-6">
+            <div class="col-9" style="padding-top:15px">
                 <div class="row">
-                    <div class="col-12">
-                        <select id="typeDay" style="width: 348px;">
-                            <option th:value=1 selected>Явка</option>
-                            <option th:value=2>Командировка</option>
-                            <option th:value=3>Отпуск рабочие дни</option>
-                            <option th:value=4>Отпуск выходные дни</option>
-                            <option th:value=5>Выходной</option>
-                            <option th:value=6>Административный отпуск</option>
-                            <option th:value=7>Больничный</option>
-                            <option th:value=8>Простой по вине работодателя</option>
-                            <option th:value=9>Ученический отпуск</option>
-                            <option th:value=10>Отдых за отработанное время</option>
-                            <option th:value=11>Больничный в командировке</option>
-                            <option th:value=12>Рабочий выходной</option>
+                    <div class="col-3">
+                        <select id="typeDay" style="width: 200px; margin-top:1px;">
+                            <option value="1" selected="">Явка</option>
+                            <option value="2">Командировка</option>
+                            <option value="3">Отпуск рабочие дни</option>
+                            <option value="4">Отпуск выходные дни</option>
+                            <option value="5">Выходной</option>
+                            <option value="6">Административный отпуск</option>
+                            <option value="7">Больничный</option>
+                            <option value="8">Простой по вине работодателя</option>
+                            <option value="9">Ученический отпуск</option>
+                            <option value="10">Отдых за отработанное время</option>
+                            <option value="11">Больничный в командировке</option>
+                            <option value="12">Рабочий выходной</option>
                         </select>
                     </div>
-                    <div class="col-12 d-flex justify-content-start">
-                        <input id="check" type="checkbox">Применить
+                    <div class="col-2 d-flex">
+                        <input id="check" type="checkbox" style="margin-right:5px">
+                        <p style="margin-top:1px">Применить</p>
                     </div>
                 </div>
             </div>
-            <div class="col-6">
-                <div class="col-12 d-flex justify-content-end">
-                    <input type="button" class="submit" onclick="document.forms['hours'].submit();">
+            <div class="col-3">
+                <div class="row">
+                    <div class="col-4 d-flex">
+                        <input type="button" class="cancelBtn" onclick="document.location.reload();">
+                    </div>
+                    <div class="col-4 d-flex">
+                        <input type="button" class="submitBtn" onclick="document.forms['hours'].submit();">
+                    </div>
+                    <div class="col-4 d-flex">
+                        <a type="button" class="updateBtn" onclick="updatingHours();">
+                            <img id="updateHoursImg" class="updateImg" src="/img/reload.png">
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
