@@ -88,7 +88,22 @@ public class UserService implements UserDetailsService {
     }
 
     public EmptyResponse save(UserSaveDtoRequest user) throws ServerException {
-        userDao.save(new User(user.getFirstname(), user.getLastname(), user.getEmail(), bCryptPasswordEncoder.encode(user.getPassword()), user.getRole()));
+        userDao.save(new User(user.getFirstname(), user.getLastname(), user.getEmail(), bCryptPasswordEncoder.encode(user.getPassword()), Role.ROLE_EMPLOYEE));
+        return new EmptyResponse();
+    }
+
+    public EmptyResponse delete(int id) throws ServerException {
+        userDao.delete(id);
+        return new EmptyResponse();
+    }
+
+    public EmptyResponse upRole(int id) throws ServerException {
+        userDao.updateRole(id, Role.ROLE_ADMIN);
+        return new EmptyResponse();
+    }
+
+    public EmptyResponse downRole(int id) throws ServerException {
+        userDao.updateRole(id, Role.ROLE_EMPLOYEE);
         return new EmptyResponse();
     }
 

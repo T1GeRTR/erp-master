@@ -13,7 +13,10 @@
 
 <body>
 <div th:insert="~{header :: header}"></div>
-<div  class="main" th:insert="~{tableUsers :: tableUsers}"></div>
+<div class="main">
+    <div th:if="${users.userList.isEmpty()}" class="pb600" th:insert="~{tableUsers :: tableUsers}"></div>
+    <div th:if="${!users.userList.isEmpty()}" th:insert="~{tableUsers :: tableUsers}"></div>
+</div>
 <div th:insert="~{footer :: footer}"></div>
 <script src="/js/main.js"></script>
 </body>

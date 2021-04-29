@@ -1,0 +1,41 @@
+com.mtv.erp.ErpApplication 2021.04.28 09:17:33.430 INFO  [main] c.m.e.ErpApplication: Starting ErpApplication using Java 11.0.10 on ASE-PC-777 with PID 132 (C:\Java projects\ERP-master\out\artifacts\erp_jar\erp.jar started by Admin in C:\Java projects\ERP-master\out\artifacts\erp_jar)
+com.mtv.erp.ErpApplication 2021.04.28 09:17:33.430 DEBUG [main] c.m.e.ErpApplication: Running with Spring Boot, Spring
+com.mtv.erp.ErpApplication 2021.04.28 09:17:33.435 INFO  [main] c.m.e.ErpApplication: No active profile set, falling back to default profiles: default
+org.springframework.boot.SpringApplication 2021.04.28 09:17:33.435 DEBUG [main] o.s.b.SpringApplication: Loading source class com.mtv.erp.ErpApplication
+org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext 2021.04.28 09:17:33.474 DEBUG [main] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext: Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@71c27ee8
+org.springframework.beans.factory.support.DefaultListableBeanFactory 2021.04.28 09:17:33.489 DEBUG [main] o.s.b.f.s.DefaultListableBeanFactory: Creating shared instance of singleton bean 'org.springframework.context.annotation.internalConfigurationAnnotationProcessor'
+org.springframework.context.annotation.ClassPathBeanDefinitionScanner 2021.04.28 09:17:33.529 DEBUG [main] o.s.c.a.ClassPathBeanDefinitionScanner: Identified candidate component class: URL [jar:file:/C:/Java%20projects/ERP-master/out/artifacts/erp_jar/erp.jar!/com/mtv/erp/config/MvcConfig.class]
+org.springframework.context.annotation.ClassPathBeanDefinitionScanner 2021.04.28 09:17:33.544 DEBUG [main] o.s.c.a.ClassPathBeanDefinitionScanner: Identified candidate component class: URL [jar:file:/C:/Java%20projects/ERP-master/out/artifacts/erp_jar/erp.jar!/com/mtv/erp/config/WebSecurityConfig.class]
+org.springframework.context.annotation.ClassPathBeanDefinitionScanner 2021.04.28 09:17:33.549 DEBUG [main] o.s.c.a.ClassPathBeanDefinitionScanner: Identified candidate component class: URL [jar:file:/C:/Java%20projects/ERP-master/out/artifacts/erp_jar/erp.jar!/com/mtv/erp/controller/HoursController.class]
+org.springframework.context.annotation.ClassPathBeanDefinitionScanner 2021.04.28 09:17:33.549 DEBUG [main] o.s.c.a.ClassPathBeanDefinitionScanner: Identified candidate component class: URL [jar:file:/C:/Java%20projects/ERP-master/out/artifacts/erp_jar/erp.jar!/com/mtv/erp/controller/MainController.class]
+org.springframework.context.annotation.ClassPathBeanDefinitionScanner 2021.04.28 09:17:33.549 DEBUG [main] o.s.c.a.ClassPathBeanDefinitionScanner: Identified candidate component class: URL [jar:file:/C:/Java%20projects/ERP-master/out/artifacts/erp_jar/erp.jar!/com/mtv/erp/controller/UserController.class]
+org.springframework.context.annotation.ClassPathBeanDefinitionScanner 2021.04.28 09:17:33.559 DEBUG [main] o.s.c.a.ClassPathBeanDefinitionScanner: Identified candidate component class: URL [jar:file:/C:/Java%20projects/ERP-master/out/artifacts/erp_jar/erp.jar!/com/mtv/erp/exception/GlobalExceptionHandler.class]
+org.springframework.context.annotation.ClassPathBeanDefinitionScanner 2021.04.28 09:17:33.569 DEBUG [main] o.s.c.a.ClassPathBeanDefinitionScanner: Identified candidate component class: URL [jar:file:/C:/Java%20projects/ERP-master/out/artifacts/erp_jar/erp.jar!/com/mtv/erp/mybatis/daoimpl/HoursDaoImpl.class]
+org.springframework.context.annotation.ClassPathBeanDefinitionScanner 2021.04.28 09:17:33.569 DEBUG [main] o.s.c.a.ClassPathBeanDefinitionScanner: Identified candidate component class: URL [jar:file:/C:/Java%20projects/ERP-master/out/artifacts/erp_jar/erp.jar!/com/mtv/erp/mybatis/daoimpl/UserDaoImpl.class]
+org.springframework.context.annotation.ClassPathBeanDefinitionScanner 2021.04.28 09:17:33.594 DEBUG [main] o.s.c.a.ClassPathBeanDefinitionScanner: Identified candidate component class: URL [jar:file:/C:/Java%20projects/ERP-master/out/artifacts/erp_jar/erp.jar!/com/mtv/erp/service/HoursService.class]
+org.springframework.context.annotation.ClassPathBeanDefinitionScanner 2021.04.28 09:17:33.594 DEBUG [main] o.s.c.a.ClassPathBeanDefinitionScanner: Identified candidate component class: URL [jar:file:/C:/Java%20projects/ERP-master/out/artifacts/erp_jar/erp.jar!/com/mtv/erp/service/UserService.class]
+org.springframework.boot.SpringApplication 2021.04.28 09:17:33.684 ERROR [main] o.s.b.SpringApplication: Application run failed
+java.lang.IllegalArgumentException: No auto configuration classes found in META-INF/spring.factories. If you are using a custom packaging, make sure that file is correct.
+	at org.springframework.util.Assert.notEmpty(Assert.java:470)
+	at org.springframework.boot.autoconfigure.AutoConfigurationImportSelector.getCandidateConfigurations(AutoConfigurationImportSelector.java:180)
+	at org.springframework.boot.autoconfigure.AutoConfigurationImportSelector.getAutoConfigurationEntry(AutoConfigurationImportSelector.java:123)
+	at org.springframework.boot.autoconfigure.AutoConfigurationImportSelector$AutoConfigurationGroup.process(AutoConfigurationImportSelector.java:434)
+	at org.springframework.context.annotation.ConfigurationClassParser$DeferredImportSelectorGrouping.getImports(ConfigurationClassParser.java:879)
+	at org.springframework.context.annotation.ConfigurationClassParser$DeferredImportSelectorGroupingHandler.processGroupImports(ConfigurationClassParser.java:809)
+	at org.springframework.context.annotation.ConfigurationClassParser$DeferredImportSelectorHandler.process(ConfigurationClassParser.java:780)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:193)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:330)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:246)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:311)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:112)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:745)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:563)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:144)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:767)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:759)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:426)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:326)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1311)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1300)
+	at com.mtv.erp.ErpApplication.main(ErpApplication.java:14)
+org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext 2021.04.28 09:17:33.710 DEBUG [main] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext: Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@71c27ee8, started on Wed Apr 28 09:17:33 GMT+06:00 2021

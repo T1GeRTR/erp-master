@@ -3,6 +3,7 @@ package com.mtv.erp.mybatis.daoimpl;
 import com.mtv.erp.dao.UserDao;
 import com.mtv.erp.exception.ErrorCode;
 import com.mtv.erp.exception.ServerException;
+import com.mtv.erp.model.Role;
 import com.mtv.erp.model.User;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -68,6 +69,22 @@ public class UserDaoImpl extends DaoImplBase implements UserDao {
     }
 
     @Override
+    public boolean updateRole(int id, Role role) throws ServerException {
+        LOGGER.debug("DAO update");
+        try (SqlSession sqlSession = getSession()) {
+            try {
+                getUserMapper(sqlSession).updateRole(id, role);
+            } catch (RuntimeException e) {
+                LOGGER.debug("Can't update role user {}", id, e);
+                sqlSession.rollback();
+                throw new ServerException(ErrorCode.CANT_UPDATE_USER);
+            }
+            sqlSession.commit();
+        }
+        return true;
+    }
+
+    @Override
     public boolean delete(int id) throws ServerException {
         LOGGER.debug("DAO delete");
         try (SqlSession sqlSession = getSession()) {
@@ -118,9 +135,9 @@ public class UserDaoImpl extends DaoImplBase implements UserDao {
                 List<User> users = new ArrayList<>();
                 for (User user : getUserMapper(sqlSession).getAll()) {
                     User userFromBase = getUserMapper(sqlSession).getByIdWithHours(user.getId(), from, to);
-                    if(userFromBase!=null){
+                    if (userFromBase != null) {
                         users.add(userFromBase);
-                    }else {
+                    } else {
                         users.add(user);
                     }
                 }

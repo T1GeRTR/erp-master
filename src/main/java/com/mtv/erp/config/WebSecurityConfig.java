@@ -30,8 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 //Доступ только для пользователей с ролью Администратор
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                //.antMatchers("/hours/**").hasRole("ADMIN")
-                .antMatchers("/hours/**").permitAll()
+                .antMatchers("/hours/**").hasRole("ADMIN")
+                .antMatchers("/user/**").hasRole("ADMIN")
                 //Доступ разрешен всем пользователей
                 .antMatchers("/**").permitAll()
                 .antMatchers("/resources/**").permitAll()

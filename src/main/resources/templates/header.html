@@ -7,7 +7,8 @@
         <a th:href="@{'../'}"><div class="logo"><img src="/ASE_logo_rus.png" alt=""></div></a>
         <ul class="menu"></ul>
         <li>
-            <a th:href="@{'../user/6258116/' + ${month} + '-' + ${year}}">Мой табель</a>
+            <a>Мой табель</a>
+<!--            <a th:href="@{'../user/6258116/' + ${month} + '-' + ${year}}">Мой табель</a>-->
         </li>
         <li sec:authorize="hasRole('ROLE_ADMIN') || !isAuthenticated()">
             <a th:href="@{'../user/'}">Сотрудники</a>
@@ -16,7 +17,8 @@
             <a th:href="@{'../hours/' + ${month} + '-' + ${year}}">Общий табель</a>
         </li>
         <li>
-            <a href="#">Аккаунт</a>
+            <a>Аккаунт</a>
+<!--            <a href="#">Аккаунт</a>-->
         </li>
         <li class="d-flex social">
             <div class="icon">

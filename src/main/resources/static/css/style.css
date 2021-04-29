@@ -22,6 +22,10 @@ table {
      border-collapse: collapse;
 }
 
+.pb600{
+     padding-bottom: 600px;
+}
+
 .bg-td{
     background-color: #FFF;
 }

@@ -1,5 +1,6 @@
 package com.mtv.erp.mybatis.mappers;
 
+import com.mtv.erp.model.Role;
 import com.mtv.erp.model.User;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.FetchType;
@@ -25,7 +26,10 @@ public interface UserMapper {
     @Update({"UPDATE user SET firstname = #{user.firstname}, lastname = #{user.lastname}, email = #{user.email}, role = #{user.role.name} WHERE id = #{user.id}"})
     boolean update(@Param("user") User user);
 
-    @Delete("UPDATE user SET deleted = 1 WHERE id = #{id}")
+    @Update({"UPDATE user SET role = #{role.name} WHERE id = #{id}"})
+    boolean updateRole(@Param("id") int id, @Param("role") Role role);
+
+    @Delete("UPDATE user SET deleted = 1 WHERE id = #{id} AND saved = 1")
     Integer delete(@Param("id") Integer userId);
 
     @Insert({"<script>",
@@ -37,7 +41,7 @@ public interface UserMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int insertAll(@Param("list") List<User> list);
 
-    @Select({"SELECT id, firstname, lastname, email FROM user WHERE NOT deleted = 1 ORDER BY lastname"})
+    @Select({"SELECT id, firstname, lastname, email, saved, role FROM user WHERE NOT deleted = 1 ORDER BY lastname"})
     List<User> getAll();
 
     @Select({"SELECT user.id as id, user.firstName as firstname, user.lastName as lastname, user.email as email, MIN(user_hours.date) as fromdate, MAX(user_hours.date) as todate FROM user, user_hours WHERE user.id = #{id} AND user_hours.date BETWEEN #{from} AND #{to} AND user.deleted = 0"})

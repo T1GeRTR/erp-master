@@ -14,7 +14,7 @@ for (let i = 0; i < sums.length; i++) {
 }
 for (let i = 0; i < save.length; i++) {
     typeDay = save[i].parentNode.children[3];
-    save[i].style = "background-color: " + colorType(save[i], typeDay) + "; " + "border-width: 2px";
+    save[i].style.borderWidth = "medium";
 }
 
 function ChangeColor(Element) {
@@ -31,8 +31,6 @@ function ChangeColor(Element) {
 }
 
 function colorType(Element, typeDay) {
-    console.log(Element.value);
-    console.log(typeDay.value);
     if (typeDay.value == 1) {
         Element.style = "background-color:" + "#FFF" + "; color: #000;";
     } else if (typeDay.value == 2) {
@@ -84,10 +82,14 @@ $.ajax({
     type:"POST",
     url:"/hours/update",
     dataType:"json",
-    success:function(response){
-        $("#updateHoursImg").css('animation', 'none');
-        document.location.reload();
-    }
+    success:function(data)
+        {
+            document.location.reload();
+        },
+    error:function(data)
+        {
+            document.location.reload();
+        }
 });
 }
 
@@ -110,7 +112,7 @@ function addUser() {
            data: form.serialize(), // serializes the form's elements.
            success: function(data)
            {
-              document.location.reload();
+              location.reload();;
            }
     });
 }

@@ -1,6 +1,7 @@
 package com.mtv.erp.dao;
 
 import com.mtv.erp.exception.ServerException;
+import com.mtv.erp.model.Role;
 import com.mtv.erp.model.User;
 
 import java.time.LocalDate;
@@ -10,6 +11,8 @@ public interface UserDao {
     User insert (User user) throws ServerException;
 
     User save (User user) throws ServerException;
+
+    boolean updateRole(int id, Role role) throws ServerException;
 
     boolean delete (int id) throws ServerException;
 

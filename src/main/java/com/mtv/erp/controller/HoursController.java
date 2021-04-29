@@ -3,7 +3,6 @@ package com.mtv.erp.controller;
 import com.mtv.erp.exception.ServerException;
 import com.mtv.erp.model.DayOfWeek;
 import com.mtv.erp.request.UsersGetFromDateDtoRequest;
-import com.mtv.erp.response.EmptyResponse;
 import com.mtv.erp.response.HoursGetUserDtoResponse;
 import com.mtv.erp.response.UserGetFromDateDtoResponse;
 import com.mtv.erp.response.UsersGetFromDateDtoResponse;

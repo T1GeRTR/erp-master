@@ -17,12 +17,39 @@
                 <div th:utext="${user.lastname}" class="col-3  bg-td border-color">...</div>
                 <div th:utext="${user.firstname}" class="col-3 bg-td border-color">...</div>
                 <div th:utext="${user.email}" class="col-3 bg-td border-color">...</div>
-                <div class="col-2 bg-td border-color">...</div>
+                <div class="col-2 bg-td border-color">
+                    <div class="d-flex justify-content-between">
+                        <div th:if="${user.role.name == 'ROLE_EMPLOYEE'}">
+                            <form th:id="'up' + ${user.id}" th:action="@{'/user/up/{id}'(id=${user.id})}"
+                                  method="GET">
+                                <input style="color: green; width: 130px;" type="submit" formmethod="GET" value="Повысить"
+                                       th:form="'up' + ${user.id}"/>
+                            </form>
+                        </div>
+                        <div th:if="${user.role.name == 'ROLE_ADMIN'}">
+                            <form th:id="'down' + ${user.id}" th:action="@{'/user/down/{id}'(id=${user.id})}"
+                                  method="GET">
+                                <input style="color: red; width: 130px;" type="submit" formmethod="GET" value="Понизить"
+                                       th:form="'down' + ${user.id}"/>
+                            </form>
+                        </div>
+                        <div th:if="${user.saved}">
+                            <form th:id="'delete' + ${user.id}" th:action="@{'/user/delete/{id}'(id=${user.id})}"
+                                  method="GET">
+                                <input type="submit" value="" formmethod="GET"
+                                       style="background: url(/img/cancel.png) 100% 100% no-repeat; background-size: cover; width: 20px; height:20px"
+                                       th:form="'delete' + ${user.id}"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
             <form name="addUser" id="addUser" action="#" th:action="@{/user}" style="margin-top: 20px;"
                   th:object="${user}" method="post" onsubmit="return false;">
                 <div class="row" style="background-color:#FFF">
-                    <div style="text-align: center; padding: 0px;" class="col-1 border-color bgcolor-td">Добавить сотрудника</div>
+                    <div style="text-align: center; padding: 0px;" class="col-1 border-color bgcolor-td">Добавить
+                        сотрудника
+                    </div>
                     <div class="col-2 d-flex border-color align-items-center">
                         <input type="text" id="lastname" th:placeholder="Фамилия" th:field="*{lastname}"/></div>
                     <div class="col-2 d-flex border-color align-items-center">
@@ -30,15 +57,13 @@
                     <div class="col-2 d-flex border-color align-items-center">
                         <input type="email" id="email" th:placeholder="Email" th:field="*{email}"/>
                     </div>
-                    <div class="col-2 border-color align-items-center">
+                    <div class="col-3 border-color align-items-center">
                         <input type="password" id="password" th:placeholder="Пароль" th:field="*{password}"/>
-                        <input type="password" id="passwordConfirm" th:placeholder="Подтверждение" th:field="*{passwordConfirm}"/>
+                        <input type="password" id="passwordConfirm" th:placeholder="Подтверждение"
+                               th:field="*{passwordConfirm}"/>
                     </div>
                     <div class="col-2 d-flex border-color align-items-center">
-                        <input type="text" id="role" th:placeholder="${user.role.name}" th:field="*{role}"/>
-                    </div>
-                    <div class="col-1 d-flex border-color align-items-center">
-                        <input id= "addUserBtn" type="button" class="user-save">
+                        <input id="addUserBtn" type="button" class="user-save">
                     </div>
                 </div>
             </form>

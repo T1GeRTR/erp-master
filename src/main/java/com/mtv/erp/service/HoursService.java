@@ -131,7 +131,11 @@ public class HoursService {
             for (Hours hours : hoursDao.getFromDateHours(from, now)) {
                 if (laborRecord.getDate().equals(hours.getDate()) && laborRecord.getUser().equals(hours.getUser())) {
                     hours.setHours(String.valueOf(Float.parseFloat(hours.getHours()) - Float.parseFloat(laborRecord.getHours())));
-                    hoursDao.updateHours(hours);
+                    if (Float.parseFloat(hours.getHours()) == 0L) {
+                        hoursDao.deleteHours(hours.getId());
+                    } else {
+                        hoursDao.updateHours(hours);
+                    }
                 }
             }
             hoursDao.deleteHours(laborRecord.getId());

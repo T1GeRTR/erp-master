@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.websocket.server.PathParam;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +66,37 @@ public class UserController {
     @RequestMapping(value = {"/user"}, method = RequestMethod.POST)
     String addUser(Model model, @ModelAttribute("SpringWeb") UserSaveDtoRequest user) throws ServerException {
         userService.save(user);
+        model.addAttribute("user", new UserSaveDtoRequest("", "", "", "", "", Role.ROLE_EMPLOYEE));
+        model.addAttribute("users", userService.getAll());
+        model.addAttribute("month", LocalDate.now().getMonthValue());
+        model.addAttribute("year", LocalDate.now().getYear());
+        return "getAllUser";
+    }
+
+    @RequestMapping(value = {"/user/delete/{id}"}, method = RequestMethod.GET)
+    String deleteUser(Model model, @PathVariable("id") int id) throws ServerException {
+        userService.delete(id);
+        model.addAttribute("user", new UserSaveDtoRequest("", "", "", "", "", Role.ROLE_EMPLOYEE));
+        model.addAttribute("users", userService.getAll());
+        model.addAttribute("month", LocalDate.now().getMonthValue());
+        model.addAttribute("year", LocalDate.now().getYear());
+        return "getAllUser";
+    }
+
+    @RequestMapping(value = {"/user/up/{id}"}, method = RequestMethod.GET)
+    String upUser(Model model, @PathVariable("id") int id) throws ServerException {
+        userService.upRole(id);
+        model.addAttribute("user", new UserSaveDtoRequest("", "", "", "", "", Role.ROLE_EMPLOYEE));
+        model.addAttribute("users", userService.getAll());
+        model.addAttribute("month", LocalDate.now().getMonthValue());
+        model.addAttribute("year", LocalDate.now().getYear());
+        return "getAllUser";
+    }
+
+    @RequestMapping(value = {"/user/down/{id}"}, method = RequestMethod.GET)
+    String downUser(Model model, @PathVariable("id") int id) throws ServerException {
+        userService.downRole(id);
+        model.addAttribute("user", new UserSaveDtoRequest("", "", "", "", "", Role.ROLE_EMPLOYEE));
         model.addAttribute("users", userService.getAll());
         model.addAttribute("month", LocalDate.now().getMonthValue());
         model.addAttribute("year", LocalDate.now().getYear());
