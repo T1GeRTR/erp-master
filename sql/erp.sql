@@ -90,7 +90,7 @@ CREATE TABLE `user_hours` (
 PRIMARY KEY(id),
 FOREIGN KEY(userId)REFERENCES `user`(id) ON DELETE CASCADE,
 KEY `date`(date),
-KEY `hours`(date),
+KEY `hours`(hours),
 KEY `taskId`(taskId),
 KEY `taskTitle`(taskTitle),
 KEY `projectId`(taskId),
@@ -102,18 +102,18 @@ CREATE TABLE `hours` (
 	`id` int(11) NOT NULL,
 `userId` int(11)NOT NULL,
 `date` date NOT NULL,
-`hours` float(11)NOT NULL,
+`hours` varchar(50) NOT NULL,
 `saved` boolean NOT NULL DEFAULT FALSE,
 `deleted` boolean NOT NULL DEFAULT FALSE,
 `type` int(11) NOT NULL DEFAULT 1,
 PRIMARY KEY(id),
 FOREIGN KEY(userId)REFERENCES `user`(id) ON DELETE CASCADE,
 KEY `date`(date),
-KEY `hours`(date),
+KEY `hours`(hours),
 KEY saved(saved),
 KEY deleted(deleted),
 KEY type (type)
 )ENGINE = INNODB DEFAULT CHARSET = utf8;
 
 INSERT INTO user (id, firstname, lastname, email, password, deleted, role) VALUES (1, 'firstname', 'lastname', 'email', 'password', 1, 'ROLE_ADMIN');
-INSERT INTO hours (id, userId, date, hours, saved) VALUES (900000000, 1, '2000-01-01', 8, 1);
+INSERT INTO hours (id, userId, date, hours, saved) VALUES (900000000, 1, '2000-01-01', '8.0', 1);

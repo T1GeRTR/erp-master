@@ -28,7 +28,7 @@ public class HoursController {
     @Autowired
     private UserService userService;
 
-    //@PostConstruct
+    @PostConstruct
     @PostMapping(value = {"/hours/update"})
     String update() throws ServerException {
         userService.update();
